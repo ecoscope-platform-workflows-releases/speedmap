@@ -1,53 +1,104 @@
 all-grouper:
   name: All Grouper
-  description: A demonstration of a workflow with no grouping.
+  description: A demonstration of the speedmap workflow with "all" (i.e. no) grouping.
   params:
     workflow_details:
-      name: "Example Workflow"
-      description: "An example workflow for testing purposes."
-    time_range:
-      since: "2015-01-01T00:00:00Z"
-      until: "2015-02-28T23:59:59Z"
+      name: "Speedmap Dashboard"
+      description: "A dashboard for visualizing speedmap trajectories."
+    er_client_name:
+      data_source:
+        name: "mep_dev"
     groupers:
       groupers: []
-    calculator:
-      a: 1
-      b: 1
-      operation: "add"
+    time_range:
+      since: "2017-01-01T00:00:00Z"
+      until: "2017-03-31T23:59:59Z"
+    subject_obs:
+      subject_group_name: "Ecoscope"
+      include_inactive: false
+    subject_traj:
+      trajectory_segment_filter:
+        min_length_meters: 0.001
+        max_length_meters: 10000.0
+        max_time_secs: 21600.0
+        min_time_secs: 1.0
+        max_speed_kmhr: 10.0
+        min_speed_kmhr: 0.0001
+    base_map_defs:
+      base_maps:
+        - url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+          opacity: 1.0
+        - custom_url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          custom_opacity: 0.5
+          custom_max_zoom: 17
+          custom_min_zoom: null
 
 month-grouper:
   name: Month Grouper
-  description: A demonstration of a workflow with monthly grouping.
+  description: A demonstration of the speedmap workflow with monthly grouping.
   params:
     workflow_details:
-      name: "Example Workflow"
-      description: "An example workflow for testing purposes."
-    time_range:
-      since: "2015-01-01T00:00:00Z"
-      until: "2015-02-28T23:59:59Z"
+      name: "Speedmap Dashboard"
+      description: "A dashboard for visualizing speedmap trajectories."
+    er_client_name:
+      data_source:
+        name: "mep_dev"
     groupers:
       groupers:
         - "%B"
-    calculator:
-      a: 1
-      b: 1
-      operation: "add"
-
+    time_range:
+      since: "2017-01-01T00:00:00Z"
+      until: "2017-03-31T23:59:59Z"
+    subject_obs:
+      subject_group_name: "Ecoscope"
+      include_inactive: false
+    subject_traj:
+      trajectory_segment_filter:
+        min_length_meters: 0.001
+        max_length_meters: 10000.0
+        max_time_secs: 21600.0
+        min_time_secs: 1.0
+        max_speed_kmhr: 10.0
+        min_speed_kmhr: 0.0001
+    base_map_defs:
+      base_maps:
+        - url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+          opacity: 1.0
+        - url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          opacity: 0.5
 
 value-grouper:
   name: Value Grouper
-  description: A demonstration of a workflow grouped by a value.
+  description: A demonstration of the speedmap workflow with value grouping.
   params:
     workflow_details:
-      name: "Example Workflow"
-      description: "An example workflow for testing purposes."
+      name: "Subject Tracking Dashboard"
+      description: "A dashboard for visualizing speedmap trajectories."
+    er_client_name:
+      data_source:
+        name: "mep_dev"
     groupers:
       groupers:
-        - index_name: "test"
+        - "subject_name"
+        - "subject_subtype"
+        - "subject_sex"
     time_range:
-      since: "2015-01-01T00:00:00Z"
-      until: "2015-02-28T23:59:59Z"
-    calculator:
-      a: 1
-      b: 1
-      operation: "add"
+      since: "2017-01-01T00:00:00Z"
+      until: "2017-03-31T23:59:59Z"
+    subject_obs:
+      subject_group_name: "Ecoscope"
+      include_inactive: false
+    subject_traj:
+      trajectory_segment_filter:
+        min_length_meters: 0.001
+        max_length_meters: 10000.0
+        max_time_secs: 21600.0
+        min_time_secs: 1.0
+        max_speed_kmhr: 10.0
+        min_speed_kmhr: 0.0001
+    base_map_defs:
+      base_maps:
+        - url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+          opacity: 1.0
+        - url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          opacity: 0.5
