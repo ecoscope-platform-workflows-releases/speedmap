@@ -23,7 +23,7 @@ from .response import ResponseModel
 app = FastAPI(
     title="speedmap",
     debug=True,
-    version="d4446f1",
+    version="3d316cd",
 )
 app.add_middleware(
     CORSMiddleware,

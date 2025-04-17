@@ -85,24 +85,11 @@ workflow:
       retain_columns: []
       rename_columns:
         extra__name: "subject_name"
-        extra__subject_subtype: "subject_subtype"
-        extra__sex: "subject_sex"
-  - name: Map Subject Sex Values
-    id: map_subject_sex
-    task: map_values
-    partial:
-      df: ${{ workflow.rename_grouper_columns.return }}
-      column_name: "subject_sex"
-      value_map:
-        "male": "male"
-        "female": "female"
-      missing_values: "replace"
-      replacement: "unknown"
   - name: Classify Trajectories By Speed
     id: classify_traj_speed
     task: apply_classification
     partial:
-      df: ${{ workflow.map_subject_sex.return }}
+      df: ${{ workflow.rename_grouper_columns.return }}
       input_column_name: "speed_kmhr"
       output_column_name: "speed_bins"
       classification_options:
@@ -197,7 +184,7 @@ workflow:
     id: traj_map_widgets_single_views
     task: create_map_widget_single_view
     partial:
-      title: "Subject Group Trajectory Map"
+      title: "Subject Group Speed Map"
     map:
       argnames: [view, data]
       argvalues: ${{ workflow.ecomap_html_urls.return }}

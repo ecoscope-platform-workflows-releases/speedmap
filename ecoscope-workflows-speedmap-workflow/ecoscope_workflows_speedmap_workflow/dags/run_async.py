@@ -335,7 +335,7 @@ def main(params: Params):
             .handle_errors(task_instance_id="traj_map_widgets_single_views")
             .set_executor("lithops"),
             partial={
-                "title": "Subject Group Trajectory Map",
+                "title": "Subject Group Speed Map",
             }
             | (params_dict.get("traj_map_widgets_single_views") or {}),
             method="map",

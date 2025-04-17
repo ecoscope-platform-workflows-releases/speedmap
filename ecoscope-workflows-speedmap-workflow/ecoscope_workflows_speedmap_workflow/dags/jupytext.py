@@ -528,9 +528,7 @@ traj_map_widgets_single_views = (
     create_map_widget_single_view.handle_errors(
         task_instance_id="traj_map_widgets_single_views"
     )
-    .partial(
-        title="Subject Group Trajectory Map", **traj_map_widgets_single_views_params
-    )
+    .partial(title="Subject Group Speed Map", **traj_map_widgets_single_views_params)
     .map(argnames=["view", "data"], argvalues=ecomap_html_urls)
 )
 

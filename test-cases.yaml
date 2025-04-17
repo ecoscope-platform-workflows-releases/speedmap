@@ -72,7 +72,7 @@ value-grouper:
   description: A demonstration of the speedmap workflow with value grouping.
   params:
     workflow_details:
-      name: "Subject Tracking Dashboard"
+      name: "Speedmap Dashboard"
       description: "A dashboard for visualizing speedmap trajectories."
     er_client_name:
       data_source:
@@ -80,8 +80,6 @@ value-grouper:
     groupers:
       groupers:
         - "subject_name"
-        - "subject_subtype"
-        - "subject_sex"
     time_range:
       since: "2017-01-01T00:00:00Z"
       until: "2017-03-31T23:59:59Z"

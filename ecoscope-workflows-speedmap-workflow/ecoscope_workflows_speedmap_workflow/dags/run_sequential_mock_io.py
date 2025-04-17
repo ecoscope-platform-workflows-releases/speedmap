@@ -283,7 +283,7 @@ def main(params: Params):
         create_map_widget_single_view.validate()
         .handle_errors(task_instance_id="traj_map_widgets_single_views")
         .partial(
-            title="Subject Group Trajectory Map",
+            title="Subject Group Speed Map",
             **(params_dict.get("traj_map_widgets_single_views") or {}),
         )
         .map(argnames=["view", "data"], argvalues=ecomap_html_urls)
