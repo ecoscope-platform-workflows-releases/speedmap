@@ -1,4 +1,4 @@
-id: template # TODO: Your Workflow ID
+id: speedmap
 requirements:
   - name: ecoscope-workflows-core
     version: "*"
