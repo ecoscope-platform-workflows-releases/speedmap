@@ -3,14 +3,12 @@
 [project]
 name = "ecoscope-workflows-speedmap-workflow"
 channels = [
-    "file:///tmp/ecoscope-workflows/release/artifacts/",
     "https://repo.prefix.dev/ecoscope-workflows/",
     "conda-forge",
     "microsoft",
 ]
 platforms = [
     "linux-64",
-    "linux-aarch64",
     "osx-arm64",
 ]
 [dependencies]
@@ -19,29 +17,27 @@ platforms = [
 [system-requirements]
 linux = "4.4.0"
 
-[dependencies.fastapi]
-version = "*"
-channel = "https://conda.anaconda.org/conda-forge/"
-
-[dependencies.httpx]
-version = "*"
-channel = "https://conda.anaconda.org/conda-forge/"
-
-[dependencies.uvicorn]
-version = "*"
-channel = "https://conda.anaconda.org/conda-forge/"
-
-[dependencies."ruamel.yaml"]
-version = "*"
-channel = "https://conda.anaconda.org/conda-forge/"
-
 [dependencies.ecoscope-workflows-core]
-version = "*"
-channel = "file:///tmp/ecoscope-workflows/release/artifacts/"
+version = "0.3.*"
+channel = "https://repo.prefix.dev/ecoscope-workflows/"
 
 [dependencies.ecoscope-workflows-ext-ecoscope]
+version = "0.3.*"
+channel = "https://repo.prefix.dev/ecoscope-workflows/"
+
+[feature.runner.dependencies.ecoscope-workflows-runner]
+version = "0.3.*"
+channel = "https://repo.prefix.dev/ecoscope-workflows/"
+
+[feature.runner.tasks]
+
+[feature.test.dependencies.pandas]
 version = "*"
-channel = "file:///tmp/ecoscope-workflows/release/artifacts/"
+channel = "https://conda.anaconda.org/conda-forge/"
+
+[feature.test.dependencies.pyarrow]
+version = "*"
+channel = "https://conda.anaconda.org/conda-forge/"
 
 [feature.test.dependencies.pytest]
 version = "*"
@@ -105,12 +101,23 @@ depends-on = [
 [environments.default]
 features = []
 solve-group = "default"
+no-default-feature = false
+
+[environments.runner]
+features = [
+    "runner",
+]
+solve-group = "runner"
+no-default-feature = true
 
 [environments.test]
 features = [
+    "runner",
     "test",
 ]
-solve-group = "default"
+solve-group = "test"
+no-default-feature = true
 
 [tasks]
-docker-build = "mkdir -p .tmp/ecoscope-workflows/release/artifacts/\n&& cp -r /tmp/ecoscope-workflows/release/artifacts/* .tmp/ecoscope-workflows/release/artifacts/\n&& docker buildx build -t ecoscope-workflows-speedmap-workflow .\n"
+docker-build = "docker buildx build -t ecoscope-workflows-speedmap-workflow ."
+ecoscope-workflows-speedmap-workflow = "python -m ecoscope_workflows_speedmap_workflow.cli"

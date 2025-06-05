@@ -30,7 +30,6 @@ from ecoscope_workflows_ext_ecoscope.tasks.preprocessing import (
 )
 from ecoscope_workflows_core.tasks.transformation import add_temporal_index
 from ecoscope_workflows_core.tasks.transformation import map_columns
-from ecoscope_workflows_core.tasks.transformation import map_values
 from ecoscope_workflows_ext_ecoscope.tasks.transformation import apply_classification
 from ecoscope_workflows_core.tasks.groupby import split_groups
 from ecoscope_workflows_ext_ecoscope.tasks.results import set_base_maps
@@ -62,8 +61,7 @@ def main(params: Params):
         "subject_traj": ["subject_reloc"],
         "traj_add_temporal_index": ["subject_traj", "groupers"],
         "rename_grouper_columns": ["traj_add_temporal_index"],
-        "map_subject_sex": ["rename_grouper_columns"],
-        "classify_traj_speed": ["map_subject_sex"],
+        "classify_traj_speed": ["rename_grouper_columns"],
         "split_subject_traj_groups": ["classify_traj_speed", "groupers"],
         "base_map_defs": [],
         "sort_traj_speed": ["split_subject_traj_groups"],
@@ -183,27 +181,9 @@ def main(params: Params):
                 "df": DependsOn("traj_add_temporal_index"),
                 "drop_columns": [],
                 "retain_columns": [],
-                "rename_columns": {
-                    "extra__name": "subject_name",
-                    "extra__subject_subtype": "subject_subtype",
-                    "extra__sex": "subject_sex",
-                },
+                "rename_columns": {"extra__name": "subject_name"},
             }
             | (params_dict.get("rename_grouper_columns") or {}),
-            method="call",
-        ),
-        "map_subject_sex": Node(
-            async_task=map_values.validate()
-            .handle_errors(task_instance_id="map_subject_sex")
-            .set_executor("lithops"),
-            partial={
-                "df": DependsOn("rename_grouper_columns"),
-                "column_name": "subject_sex",
-                "value_map": {"male": "male", "female": "female"},
-                "missing_values": "replace",
-                "replacement": "unknown",
-            }
-            | (params_dict.get("map_subject_sex") or {}),
             method="call",
         ),
         "classify_traj_speed": Node(
@@ -211,7 +191,7 @@ def main(params: Params):
             .handle_errors(task_instance_id="classify_traj_speed")
             .set_executor("lithops"),
             partial={
-                "df": DependsOn("map_subject_sex"),
+                "df": DependsOn("rename_grouper_columns"),
                 "input_column_name": "speed_kmhr",
                 "output_column_name": "speed_bins",
                 "classification_options": {"scheme": "equal_interval", "k": 6},

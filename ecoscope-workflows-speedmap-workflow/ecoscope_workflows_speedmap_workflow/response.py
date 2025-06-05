@@ -3,10 +3,10 @@
 
 from pydantic import BaseModel
 
-from ecoscope_workflows_core.tasks.results import DashboardJson
+from ecoscope_workflows_core.tasks.results import DashboardJson, OutputFiles
 
 
 class ResponseModel(BaseModel):
-    result: DashboardJson | None = None
+    result: DashboardJson | OutputFiles | None = None
     error: str | None = None
     trace: str | None = None

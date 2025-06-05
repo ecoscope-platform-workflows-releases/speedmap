@@ -116,11 +116,11 @@
           ],
           "default": {
             "min_length_meters": 0.001,
-            "max_length_meters": 10000,
+            "max_length_meters": 100000,
             "min_time_secs": 1,
-            "max_time_secs": 57600,
+            "max_time_secs": 172800,
             "min_speed_kmhr": 0.0001,
-            "max_speed_kmhr": 300
+            "max_speed_kmhr": 500
           },
           "title": "Trajectory Segment Filter",
           "description": "Trajectory Segments outside these bounds will be removed",
@@ -137,41 +137,189 @@
         "base_maps": {
           "default": [
             {
-              "layer_name": "TERRAIN",
               "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
               "opacity": 1
             },
             {
-              "layer_name": "SATELLITE",
               "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
               "opacity": 0.5
             }
           ],
           "items": {
+            "title": "Base Layer or Custom Layer",
             "anyOf": [
               {
-                "$ref": "#/$defs/OpenStreetMap"
+                "properties": {
+                  "url": {
+                    "default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    "title": "Preset Layer URL",
+                    "type": "string",
+                    "const": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    "enum": [
+                      "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    ]
+                  },
+                  "opacity": {
+                    "default": 1,
+                    "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
+                    "maximum": 1.0,
+                    "minimum": 0.0,
+                    "title": "Layer Opacity",
+                    "type": "number"
+                  }
+                },
+                "title": "Open Street Map",
+                "type": "object"
               },
               {
-                "$ref": "#/$defs/Roadmap"
+                "properties": {
+                  "url": {
+                    "default": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+                    "title": "Preset Layer URL",
+                    "type": "string",
+                    "const": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+                    "enum": [
+                      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+                    ]
+                  },
+                  "opacity": {
+                    "default": 1,
+                    "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
+                    "maximum": 1.0,
+                    "minimum": 0.0,
+                    "title": "Layer Opacity",
+                    "type": "number"
+                  }
+                },
+                "title": "Roadmap",
+                "type": "object"
               },
               {
-                "$ref": "#/$defs/Satellite"
+                "properties": {
+                  "url": {
+                    "default": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                    "title": "Preset Layer URL",
+                    "type": "string",
+                    "const": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                    "enum": [
+                      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                    ]
+                  },
+                  "opacity": {
+                    "default": 1,
+                    "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
+                    "maximum": 1.0,
+                    "minimum": 0.0,
+                    "title": "Layer Opacity",
+                    "type": "number"
+                  }
+                },
+                "title": "Satellite",
+                "type": "object"
               },
               {
-                "$ref": "#/$defs/Terrain"
+                "properties": {
+                  "url": {
+                    "default": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+                    "title": "Preset Layer URL",
+                    "type": "string",
+                    "const": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+                    "enum": [
+                      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+                    ]
+                  },
+                  "opacity": {
+                    "default": 1,
+                    "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
+                    "maximum": 1.0,
+                    "minimum": 0.0,
+                    "title": "Layer Opacity",
+                    "type": "number"
+                  }
+                },
+                "title": "Terrain",
+                "type": "object"
               },
               {
-                "$ref": "#/$defs/LandDx"
+                "properties": {
+                  "url": {
+                    "default": "https://tiles.arcgis.com/tiles/POUcpLYXNckpLjnY/arcgis/rest/services/landDx_basemap_tiles_mapservice/MapServer/tile/{z}/{y}/{x}",
+                    "title": "Preset Layer URL",
+                    "type": "string",
+                    "const": "https://tiles.arcgis.com/tiles/POUcpLYXNckpLjnY/arcgis/rest/services/landDx_basemap_tiles_mapservice/MapServer/tile/{z}/{y}/{x}",
+                    "enum": [
+                      "https://tiles.arcgis.com/tiles/POUcpLYXNckpLjnY/arcgis/rest/services/landDx_basemap_tiles_mapservice/MapServer/tile/{z}/{y}/{x}"
+                    ]
+                  },
+                  "opacity": {
+                    "default": 1,
+                    "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
+                    "maximum": 1.0,
+                    "minimum": 0.0,
+                    "title": "Layer Opacity",
+                    "type": "number"
+                  }
+                },
+                "title": "LandDx",
+                "type": "object"
               },
               {
-                "$ref": "#/$defs/Hillshade"
+                "properties": {
+                  "url": {
+                    "default": "https://server.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}",
+                    "title": "Preset Layer URL",
+                    "type": "string",
+                    "const": "https://server.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}",
+                    "enum": [
+                      "https://server.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}"
+                    ]
+                  },
+                  "opacity": {
+                    "default": 1,
+                    "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
+                    "maximum": 1.0,
+                    "minimum": 0.0,
+                    "title": "Layer Opacity",
+                    "type": "number"
+                  }
+                },
+                "title": "USGS Hillshade",
+                "type": "object"
               },
               {
-                "$ref": "#/$defs/CustomTileLayer"
+                "properties": {
+                  "url": {
+                    "default": "https://example.tiles.com/{z}/{x}/{y}.png",
+                    "description": "The URL of a publicly accessible tiled raster service.",
+                    "pattern": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}([-a-zA-Z0-9()@:%_\\+.~#?&//=\\{\\}]*)",
+                    "title": "Custom Layer URL",
+                    "type": "string"
+                  },
+                  "opacity": {
+                    "default": 1,
+                    "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
+                    "maximum": 1.0,
+                    "minimum": 0.0,
+                    "title": "Custom Layer Opacity",
+                    "type": "number"
+                  },
+                  "max_zoom": {
+                    "default": null,
+                    "description": "Set the maximum zoom level to fetch tiles for.",
+                    "title": "Custom Layer Max Zoom",
+                    "type": "integer"
+                  },
+                  "min_zoom": {
+                    "default": null,
+                    "description": "Set the minimum zoom level to fetch tiles for.",
+                    "title": "Custom Layer Min Zoom",
+                    "type": "integer"
+                  }
+                },
+                "title": "Custom Layer (Advanced)",
+                "type": "object"
               }
-            ],
-            "title": "Base Layer or Custom Layer"
+            ]
           },
           "title": "Set Map Base Layers",
           "type": "array",
@@ -251,7 +399,7 @@
           "type": "number"
         },
         "max_length_meters": {
-          "default": 10000,
+          "default": 100000,
           "description": "Maximum Segment Length in Meters",
           "ecoscope:advanced": true,
           "title": "Max Length Meters",
@@ -265,7 +413,7 @@
           "type": "number"
         },
         "max_time_secs": {
-          "default": 57600,
+          "default": 172800,
           "description": "Maximum Segment Duration in Seconds",
           "ecoscope:advanced": true,
           "title": "Max Time Secs",
@@ -279,7 +427,7 @@
           "type": "number"
         },
         "max_speed_kmhr": {
-          "default": 300,
+          "default": 500,
           "description": "Maximum Segment Speed in Kilometers per Hour",
           "ecoscope:advanced": true,
           "title": "Max Speed Kmhr",
@@ -287,177 +435,6 @@
         }
       },
       "title": "TrajectorySegmentFilter",
-      "type": "object"
-    },
-    "CustomTileLayer": {
-      "properties": {
-        "custom_url": {
-          "default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-          "description": "The URL of a publicly accessible tiled raster service.",
-          "pattern": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}([-a-zA-Z0-9()@:%_\\+.~#?&//=\\{\\}]*)",
-          "title": "Custom Layer URL",
-          "type": "string"
-        },
-        "custom_opacity": {
-          "default": 1,
-          "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
-          "maximum": 1.0,
-          "minimum": 0.0,
-          "title": "Custom Layer Opacity",
-          "type": "number"
-        },
-        "custom_max_zoom": {
-          "default": null,
-          "description": "Set the maximum zoom level to fetch tiles for.",
-          "title": "Custom Layer Max Zoom",
-          "type": "integer"
-        },
-        "custom_min_zoom": {
-          "default": null,
-          "description": "Set the minimum zoom level to fetch tiles for.",
-          "title": "Custom Layer Min Zoom",
-          "type": "integer"
-        }
-      },
-      "title": "Custom Layer (Advanced)",
-      "type": "object"
-    },
-    "Hillshade": {
-      "properties": {
-        "url": {
-          "const": "https://server.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}",
-          "default": "https://server.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}",
-          "enum": [
-            "https://server.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}"
-          ],
-          "title": "Preset Layer URL",
-          "type": "string"
-        },
-        "opacity": {
-          "default": 1,
-          "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
-          "maximum": 1.0,
-          "minimum": 0.0,
-          "title": "Layer Opacity",
-          "type": "number"
-        }
-      },
-      "title": "USGS Hillshade",
-      "type": "object"
-    },
-    "LandDx": {
-      "properties": {
-        "url": {
-          "const": "https://tiles.arcgis.com/tiles/POUcpLYXNckpLjnY/arcgis/rest/services/landDx_basemap_tiles_mapservice/MapServer/tile/{z}/{y}/{x}",
-          "default": "https://tiles.arcgis.com/tiles/POUcpLYXNckpLjnY/arcgis/rest/services/landDx_basemap_tiles_mapservice/MapServer/tile/{z}/{y}/{x}",
-          "enum": [
-            "https://tiles.arcgis.com/tiles/POUcpLYXNckpLjnY/arcgis/rest/services/landDx_basemap_tiles_mapservice/MapServer/tile/{z}/{y}/{x}"
-          ],
-          "title": "Preset Layer URL",
-          "type": "string"
-        },
-        "opacity": {
-          "default": 1,
-          "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
-          "maximum": 1.0,
-          "minimum": 0.0,
-          "title": "Layer Opacity",
-          "type": "number"
-        }
-      },
-      "title": "LandDx",
-      "type": "object"
-    },
-    "OpenStreetMap": {
-      "properties": {
-        "url": {
-          "const": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-          "default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-          "enum": [
-            "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ],
-          "title": "Preset Layer URL",
-          "type": "string"
-        },
-        "opacity": {
-          "default": 1,
-          "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
-          "maximum": 1.0,
-          "minimum": 0.0,
-          "title": "Layer Opacity",
-          "type": "number"
-        }
-      },
-      "title": "Open Street Map",
-      "type": "object"
-    },
-    "Roadmap": {
-      "properties": {
-        "url": {
-          "const": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
-          "default": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
-          "enum": [
-            "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
-          ],
-          "title": "Preset Layer URL",
-          "type": "string"
-        },
-        "opacity": {
-          "default": 1,
-          "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
-          "maximum": 1.0,
-          "minimum": 0.0,
-          "title": "Layer Opacity",
-          "type": "number"
-        }
-      },
-      "title": "Roadmap",
-      "type": "object"
-    },
-    "Satellite": {
-      "properties": {
-        "url": {
-          "const": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-          "default": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-          "enum": [
-            "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-          ],
-          "title": "Preset Layer URL",
-          "type": "string"
-        },
-        "opacity": {
-          "default": 1,
-          "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
-          "maximum": 1.0,
-          "minimum": 0.0,
-          "title": "Layer Opacity",
-          "type": "number"
-        }
-      },
-      "title": "Satellite",
-      "type": "object"
-    },
-    "Terrain": {
-      "properties": {
-        "url": {
-          "const": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
-          "default": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
-          "enum": [
-            "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
-          ],
-          "title": "Preset Layer URL",
-          "type": "string"
-        },
-        "opacity": {
-          "default": 1,
-          "description": "Set layer transparency from 1 (fully visible) to 0 (hidden).",
-          "maximum": 1.0,
-          "minimum": 0.0,
-          "title": "Layer Opacity",
-          "type": "number"
-        }
-      },
-      "title": "Terrain",
       "type": "object"
     }
   },

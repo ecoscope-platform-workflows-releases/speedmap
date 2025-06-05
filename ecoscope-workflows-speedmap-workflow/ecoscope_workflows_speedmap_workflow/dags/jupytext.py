@@ -22,7 +22,6 @@ from ecoscope_workflows_ext_ecoscope.tasks.preprocessing import (
 )
 from ecoscope_workflows_core.tasks.transformation import add_temporal_index
 from ecoscope_workflows_core.tasks.transformation import map_columns
-from ecoscope_workflows_core.tasks.transformation import map_values
 from ecoscope_workflows_ext_ecoscope.tasks.transformation import apply_classification
 from ecoscope_workflows_core.tasks.groupby import split_groups
 from ecoscope_workflows_ext_ecoscope.tasks.results import set_base_maps
@@ -252,38 +251,8 @@ rename_grouper_columns = (
         df=traj_add_temporal_index,
         drop_columns=[],
         retain_columns=[],
-        rename_columns={
-            "extra__name": "subject_name",
-            "extra__subject_subtype": "subject_subtype",
-            "extra__sex": "subject_sex",
-        },
+        rename_columns={"extra__name": "subject_name"},
         **rename_grouper_columns_params,
-    )
-    .call()
-)
-
-
-# %% [markdown]
-# ## Map Subject Sex Values
-
-# %%
-# parameters
-
-map_subject_sex_params = dict()
-
-# %%
-# call the task
-
-
-map_subject_sex = (
-    map_values.handle_errors(task_instance_id="map_subject_sex")
-    .partial(
-        df=rename_grouper_columns,
-        column_name="subject_sex",
-        value_map={"male": "male", "female": "female"},
-        missing_values="replace",
-        replacement="unknown",
-        **map_subject_sex_params,
     )
     .call()
 )
@@ -304,7 +273,7 @@ classify_traj_speed_params = dict()
 classify_traj_speed = (
     apply_classification.handle_errors(task_instance_id="classify_traj_speed")
     .partial(
-        df=map_subject_sex,
+        df=rename_grouper_columns,
         input_column_name="speed_kmhr",
         output_column_name="speed_bins",
         classification_options={"scheme": "equal_interval", "k": 6},

@@ -1,11 +1,12 @@
 id: speedmap
 requirements:
   - name: ecoscope-workflows-core
-    version: "*"
-    channel: file:///tmp/ecoscope-workflows/release/artifacts/
+    version: "0.3.*"
+    channel: https://repo.prefix.dev/ecoscope-workflows/
   - name: ecoscope-workflows-ext-ecoscope
-    version: "*"
-    channel: file:///tmp/ecoscope-workflows/release/artifacts/
+    version: "0.3.*"
+    channel: https://repo.prefix.dev/ecoscope-workflows/
+
 rjsf-overrides:
   $defs:
     ValueGrouper.oneOf: [
