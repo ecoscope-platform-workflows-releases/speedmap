@@ -7,10 +7,7 @@ channels = [
     "conda-forge",
     "microsoft",
 ]
-platforms = [
-    "linux-64",
-    "osx-arm64",
-]
+platforms = ["linux-64", "osx-arm64", "win-64"]
 [dependencies]
 [feature.test.dependencies]
 
@@ -76,27 +73,19 @@ cmd = "python -m pytest -v tests/test_metadata.py"
 
 [feature.test.tasks.test-app-async-mock-io]
 cmd = "python -m pytest -v tests/test_results.py -k 'app and async and mock-io'"
-depends-on = [
-    "playwright-install",
-]
+depends-on = ["playwright-install"]
 
 [feature.test.tasks.test-app-sequential-mock-io]
 cmd = "python -m pytest -v tests/test_results.py -k 'app and sequential and mock-io'"
-depends-on = [
-    "playwright-install",
-]
+depends-on = ["playwright-install"]
 
 [feature.test.tasks.test-cli-async-mock-io]
 cmd = "python -m pytest -v tests/test_results.py -k 'cli and async and mock-io'"
-depends-on = [
-    "playwright-install",
-]
+depends-on = ["playwright-install"]
 
 [feature.test.tasks.test-cli-sequential-mock-io]
 cmd = "python -m pytest -v tests/test_results.py -k 'cli and sequential and mock-io'"
-depends-on = [
-    "playwright-install",
-]
+depends-on = ["playwright-install"]
 
 [environments.default]
 features = []
@@ -104,17 +93,12 @@ solve-group = "default"
 no-default-feature = false
 
 [environments.runner]
-features = [
-    "runner",
-]
+features = ["runner"]
 solve-group = "runner"
 no-default-feature = true
 
 [environments.test]
-features = [
-    "runner",
-    "test",
-]
+features = ["runner", "test"]
 solve-group = "test"
 no-default-feature = true
 
