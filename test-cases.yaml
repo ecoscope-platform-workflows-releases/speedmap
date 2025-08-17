@@ -23,7 +23,7 @@ all-grouper:
         max_time_secs: 21600.0
         min_time_secs: 1.0
         max_speed_kmhr: 10.0
-        min_speed_kmhr: 0.0001
+        min_speed_kmhr: 0.01
     base_map_defs:
       base_maps:
         - url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
@@ -59,7 +59,7 @@ month-grouper:
         max_time_secs: 21600.0
         min_time_secs: 1.0
         max_speed_kmhr: 10.0
-        min_speed_kmhr: 0.0001
+        min_speed_kmhr: 0.01
     base_map_defs:
       base_maps:
         - url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
@@ -93,7 +93,7 @@ value-grouper:
         max_time_secs: 21600.0
         min_time_secs: 1.0
         max_speed_kmhr: 10.0
-        min_speed_kmhr: 0.0001
+        min_speed_kmhr: 0.01
     base_map_defs:
       base_maps:
         - url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
