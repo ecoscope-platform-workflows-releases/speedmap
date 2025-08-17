@@ -4,11 +4,11 @@ yq = '*'
 
 [dependencies.ecoscope-workflows-core]
 channel = 'https://repo.prefix.dev/ecoscope-workflows/'
-version = '0.3.*'
+version = '0.7.2.*'
 
 [dependencies.ecoscope-workflows-ext-ecoscope]
 channel = 'https://repo.prefix.dev/ecoscope-workflows/'
-version = '0.3.*'
+version = '0.7.2.*'
 
 [project]
 channels = ['https://repo.prefix.dev/ecoscope-workflows/', 'conda-forge']
